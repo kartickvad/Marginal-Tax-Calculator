@@ -82,6 +82,8 @@ def taxForConsultant(income):
   income *= PRESUMPTIVE_RATE
   return incomeTaxFor(income) + gst
 
+print("The first column is your income (in ₹ lac) , and the second is the extra tax paid by an employee over a consultant (in ₹ thousand):")
+
 # i is income in lacs. Stop before 50, because a surcharge applies at 50.
 for i in range(1, 50):
   income = i * 100 * 1000
@@ -90,7 +92,4 @@ for i in range(1, 50):
   extra = employee_tax - consultant_tax
   extra /= 1000  # Thousands.
   extra = round(extra)
-  if extra > 0:
-    print(f"For an income of ₹{i} lac, an employee pays ₹{extra}K more tax than a consultant")
-  else:
-    print(f"For an income of ₹{i} lac, a consultant pays ₹{-extra}K more tax than an employee")
+  print(f"{i}, {extra}")
