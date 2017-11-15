@@ -8,6 +8,8 @@
 # laws, for a given level of gross income.
 #
 # Assumptions:
+#  0) You pay GST. Many consultants don't, so check that you do before you continue with this
+#     script.
 #  1) You're paid a certain amount of money, and you have to pay all taxes out of it, including GST
 #     -- you can't pass the GST along by grossing it up.
 #  2) Your income is < 50 lac. This script doesn't take surcharges into account.
