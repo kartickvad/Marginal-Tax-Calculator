@@ -4,14 +4,14 @@
 # Author: Vaddadi Kartick
 # Released under Apache license 2.0.
 
-# This script tells you whether you're better off as an employee or consultant, based on Indian tax
-# laws, for a given level of gross income.
+# This script calculates post-tax income for a given CTC, for both an employee and a consultant.
+#
+# If you're an employee, you still have to pay PF and pension out of the value this script prints —
+# this script handles only tax. PF and pension are not taxes, because you eventually get the money
+# back.
 #
 # Assumptions:
-#  0) You pay GST. Many consultants don't, so check that you do before you continue with this
-#     script.
-#  1) You're paid a certain amount of money, and you have to pay all taxes out of it, including GST
-#     -- you can't pass the GST along by grossing it up.
+#  1) GST comes out of your pocket — you can't pass the GST along by grossing it up.
 #  2) This is for fiscal year 2018-19.
 #  3) You're a resident individual of India, not a company.
 #  4) You're not a senior citizen.
@@ -19,11 +19,14 @@
 #  6) This script doesn't take into account the cost in your time of dealing with the bureaucratic
 #     GST regime, or the cost of hiring a CA to do so.
 #  7) GST paid can't be set off against something else.
-
+#  8) HRA and LTA are ignored.
+#
 # Reference: https://www.bankbazaar.com/tax/income-tax-slabs.html
 
 
 import math
+
+PROFESSIONAL_TAX = 2.5
 
 PRESUMPTIVE_RATE = .5
 # Consultants benefit from presumptive taxation  at this rate. Change it if you fall under a
@@ -33,7 +36,7 @@ EMPLOYEE_TAX_DEDUCTION = 160
 # Deductions you can claim if you’re an employee, but not if you're a consultant. This includes
 # section 80C, 80D medical insurance, and so on. Change it as suitable.
 
-GST_RATE = .18
+GST_RATE = 0
 # What GST rate do you fall under? Change it as suitable. If you don't pay GST at all — neither you
 # nor the entity paying you is registered under GST — set this to 0. Or if you're exporting, which
 # is zero-rated, set this to 0.
@@ -69,16 +72,16 @@ def income_tax_slab_3(income):
 
 # How much income tax is due?
 def incomeTaxFor(income):
+  if income <= 500:
+    return 0
   tax = income_tax_slab_1(income) + income_tax_slab_2(income) + income_tax_slab_3(income)
-  if income <= 350:
-    tax = min(tax, 2.5)  # If you earn < 3.5 lac, your tax is limited to ₹2500.
   if income >= 50 * 100:
     print("Warning: ignoring surcharge for high income")
   return tax * 1.04  # Health and education cess
 
 # How much tax does an employee pay for the given income?
 def taxForEmployee(income):
-  return incomeTaxFor(income - EMPLOYEE_TAX_DEDUCTION)
+  return incomeTaxFor(income - EMPLOYEE_TAX_DEDUCTION) + PROFESSIONAL_TAX
 
 # How much tax does a consultant pay for the given income?
 def taxForConsultant(income):
@@ -89,17 +92,23 @@ def taxForConsultant(income):
   gst = income * EFFECTIVE_GST_RATE
   income -= gst  # Income tax is net of GST.
   income *= PRESUMPTIVE_RATE
-  return incomeTaxFor(income) + gst
+  return incomeTaxFor(income) + gst + PROFESSIONAL_TAX
 
-def monthlyInHandForEmployee(income):
+def monthlyPostTaxIncomeForEmployee(income):
   return math.floor((income - taxForEmployee(income)) / 12)
 
-def monthlyInHandForConsultant(income):
+def monthlyPostTaxIncomeForConsultant(income):
   return math.floor((income - taxForConsultant(income)) / 12)
+  
+def formatMoney(amount):
+  if amount >= 100:
+    amount /= 100
+    return f"{amount} lac"
+  return f"{amount}K"
 
 def calculateAndPrint(income):
-  in_hand_employee = monthlyInHandForEmployee(income)
-  in_hand_consultant = monthlyInHandForConsultant(income)
-  print(f"An employee earns ₹{in_hand_employee}K, while a consultant earns ₹{in_hand_consultant}K, in hand each month.")
+  in_hand_employee = formatMoney(monthlyPostTaxIncomeForEmployee(income))
+  in_hand_consultant = formatMoney(monthlyPostTaxIncomeForConsultant(income))
+  print(f"For a CTC of {formatMoney(income)}, an employee earns {in_hand_employee}, while a consultant earns {in_hand_consultant}, post tax, each month.")
 
 calculateAndPrint(10 * 100)
