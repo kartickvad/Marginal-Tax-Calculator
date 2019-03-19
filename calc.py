@@ -48,8 +48,8 @@ SLAB_1 = 250
 SLAB_2 = 500
 SLAB_3 = 1000
 
-def lac(n):
-  return n * 100
+def lac(amount):
+  return amount * 100
 
 # How much income tax is due under slab 1?
 def income_tax_slab_1(income):
@@ -77,7 +77,7 @@ def income_tax_slab_3(income):
   return income * .3  #30%
 
 # How much income tax is due?
-def incomeTaxFor(income):
+def income_tax_for(income):
   if income <= 500:
     return 0
   tax = income_tax_slab_1(income) + income_tax_slab_2(income) + income_tax_slab_3(income)
@@ -89,13 +89,13 @@ def incomeTaxFor(income):
     surcharge = tax * .1  # 10% of tax
   return tax + cess + surcharge
 
-def incomeAndProfessionalTaxFor(income):
-  return incomeTaxFor(income) + PROFESSIONAL_TAX
+def income_and_professional_tax_for(income):
+  return income_tax_for(income) + PROFESSIONAL_TAX
 
 # Comprises of income tax, professional tax and GST.
-def totalTaxFor(income, is_employee):
+def total_tax_for(income, is_employee):
   if is_employee:
-    return incomeAndProfessionalTaxFor(income - EMPLOYEE_TAX_DEDUCTION) 
+    return income_and_professional_tax_for(income - EMPLOYEE_TAX_DEDUCTION) 
 
   EFFECTIVE_GST_RATE = GST_RATE/(1 + GST_RATE)
   # If you earn ₹100 on which you need to pay GST from your own pocket, you pay around ₹15, not ₹18.
@@ -104,34 +104,34 @@ def totalTaxFor(income, is_employee):
   gst = income * EFFECTIVE_GST_RATE
   income -= gst  # Income tax is net of GST.
   income *= PRESUMPTIVE_RATE
-  return incomeAndProfessionalTaxFor(income) + gst
+  return income_and_professional_tax_for(income) + gst
 
-def pfFor(income):
+def pf_for(income):
   # To calculate PF, your salary is capped at 15K.
   return min(income, 15) * PF_RATE
 
-def takeHome(income, is_employee):
-  tax = totalTaxFor(income, is_employee)
-  pf = pfFor(income) if is_employee else 0
+def take_home(income, is_employee):
+  tax = total_tax_for(income, is_employee)
+  pf = pf_for(income) if is_employee else 0
   income = income - tax - pf
   return math.floor(income / 12)
   
-def formatMoney(amount):
+def format_money(amount):
   if amount >= 100:
     amount /= 100
     return f"{amount} lac"
   return f"{amount}K"
 
-def printTakeHomeFor(income):
-  take_home_employee = formatMoney(takeHome(income, is_employee = True))
-  take_home_consultant = formatMoney(takeHome(income, is_employee = False))
-  print(f"For a CTC of {formatMoney(income)}, an employee takes home {take_home_employee}, while a consultant takes home {take_home_consultant}, each month.")
+def print_take_home_for(income):
+  take_home_employee = format_money(take_home(income, is_employee = True))
+  take_home_consultant = format_money(take_home(income, is_employee = False))
+  print(f"For a CTC of {format_money(income)}, an employee takes home {take_home_employee}, while a consultant takes home {take_home_consultant}, each month.")
 
-def printCtcForTakeHomePay(desiredTakeHome, is_employee):
+def print_ctc_for_take_home_pay(desired_take_home, is_employee):
   ctc = 1
-  while takeHome(ctc, is_employee) < desiredTakeHome:
+  while take_home(ctc, is_employee) < desired_take_home:
     ctc += 1
-  print(f"To take home {formatMoney(desiredTakeHome)} a month, you should ask for a CTC of {formatMoney(ctc)}")
+  print(f"To take home {format_money(desired_take_home)} a month, you should ask for a CTC of {format_money(ctc)}")
 
-printTakeHomeFor(lac(12))
-# printCtcForTakeHomePay(50, is_employee = False)
+print_take_home_for(lac(12))
+#print_ctc_for_take_home_pay(50, is_employee = False)
