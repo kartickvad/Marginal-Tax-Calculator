@@ -1,5 +1,16 @@
-In India, do employees or consultants pay more tax for a given income? This script will tell you.
+This script determines:
+  - When you're made an offer for a given CTC, how much will you take home every month?
+  - If you want a certain amount of take-home pay every month, what CTC should you ask for?
 
-If you just want to see the results without having to run the script yourself, see https://docs.google.com/spreadsheets/d/e/2PACX-1vQYr1fAohcpMOUYO8K1hidcG0RM7FX4rlArAA_y86XgkJJXVMAkP0zDoakL_RAwGw_hDa5cQkVHtBsv/pubhtml
+This is for Indians.
 
-Verify that the assumptions in the source file apply to you, taking your CA's help if needed, before you use these results.
+This script handles:
+  - Differing tax treatments for employees and consultants. The latter are eligible for presumptive taxation under section 44AD.
+  - Health and education cess
+  - Surcharge
+  - GST
+  - PF and pension
+  - Section 80C investments
+  - Professional tax.
+
+The script makes some assumptions, listed at the top of the file. Verify that those apply to you, taking your CA's help if needed. Some parameters can be changed; again, see the comments.
