@@ -4,11 +4,7 @@
 # Author: Vaddadi Kartick
 # Released under Apache license 2.0.
 
-# This script calculates post-tax income for a given CTC, for both an employee and a consultant.
-#
-# If you're an employee, you still have to pay PF and pension out of the value this script prints —
-# this script handles only tax. PF and pension are not taxes, because you eventually get the money
-# back.
+# This script calculates take-home pay for a given CTC, for both an employee and a consultant.
 #
 # Assumptions:
 #  1) GST comes out of your pocket — you can't pass the GST along by grossing it up.
@@ -25,6 +21,10 @@
 
 
 import math
+
+# 25.61% of CTC goes to PF and pension. Set this to zero if you don't want to consider this, for an
+# employee.
+PF_RATE = .2561
 
 PROFESSIONAL_TAX = 2.5
 
@@ -94,11 +94,16 @@ def taxForConsultant(income):
   income *= PRESUMPTIVE_RATE
   return incomeTaxFor(income) + gst + PROFESSIONAL_TAX
 
-def monthlyPostTaxIncomeForEmployee(income):
-  return math.floor((income - taxForEmployee(income)) / 12)
+def monthlyTakeHomeForEmployee(income):
+  tax = taxForEmployee(income)
+  pf = income * PF_RATE
+  income = income - tax - pf
+  return math.floor(income / 12)
 
-def monthlyPostTaxIncomeForConsultant(income):
-  return math.floor((income - taxForConsultant(income)) / 12)
+def monthlyTakeHomeForConsultant(income):
+  tax = taxForConsultant(income)
+  income -= tax
+  return math.floor(income / 12)
   
 def formatMoney(amount):
   if amount >= 100:
@@ -107,8 +112,8 @@ def formatMoney(amount):
   return f"{amount}K"
 
 def calculateAndPrint(income):
-  in_hand_employee = formatMoney(monthlyPostTaxIncomeForEmployee(income))
-  in_hand_consultant = formatMoney(monthlyPostTaxIncomeForConsultant(income))
-  print(f"For a CTC of {formatMoney(income)}, an employee earns {in_hand_employee}, while a consultant earns {in_hand_consultant}, post tax, each month.")
+  in_hand_employee = formatMoney(monthlyTakeHomeForEmployee(income))
+  in_hand_consultant = formatMoney(monthlyTakeHomeForConsultant(income))
+  print(f"For a CTC of {formatMoney(income)}, an employee takes home {in_hand_employee}, while a consultant takes home {in_hand_consultant}, each month.")
 
-calculateAndPrint(10 * 100)
+calculateAndPrint(12 * 100)
