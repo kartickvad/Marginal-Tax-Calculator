@@ -22,8 +22,10 @@
 
 import math
 
-# 25.61% of CTC goes to PF and pension. Set this to zero if you don't want to consider this, for an
-# employee.
+# 25.61% of CTC goes to PF and pension. See
+# https://www.bankbazaar.com/saving-schemes/guide-to-understanding-the-employee-pension-scheme.html
+#
+# Set this to zero if you don't want to consider this.
 PF_RATE = .2561
 
 PROFESSIONAL_TAX = 2.5
