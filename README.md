@@ -14,3 +14,5 @@ This script handles:
   - Professional tax.
 
 The script makes some assumptions, listed at the top of the file. Verify that those apply to you, taking your CA's help if needed. Some parameters can be changed; again, see the comments.
+
+The script is updated for fiscal year 2019-20.
