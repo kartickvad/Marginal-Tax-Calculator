@@ -9,7 +9,7 @@
 #
 # Assumptions:
 #  1) GST comes out of your pocket — you can't pass the GST along by grossing it up.
-#  2) This is for fiscal year 2018-19.
+#  2) This is for fiscal year 2019-20.
 #  3) You're a resident individual of India, not a company.
 #  4) You're not a senior citizen.
 #  5) Numbers are annual, and in thousands of rupees, except when stated otherwise. Take-home pay
