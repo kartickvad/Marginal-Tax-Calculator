@@ -128,11 +128,17 @@ def print_take_home_for(income):
   take_home_consultant = format_money(take_home(income, is_employee = False))
   print(f"For a CTC of {format_money(income)}, an employee takes home {take_home_employee}, while a consultant takes home {take_home_consultant}, each month.")
 
-def print_ctc_for_take_home_pay(desired_take_home, is_employee):
+def ctc_for_take_home_pay(desired_take_home, is_employee):
   ctc = 1
   while take_home(ctc, is_employee) < desired_take_home:
     ctc += 1
-  print(f"To take home {format_money(desired_take_home)} a month, you should ask for a CTC of {format_money(ctc)}")
+  return ctc
 
-print_take_home_for(lac(12))
-#print_ctc_for_take_home_pay(50, is_employee = False)
+def print_ctc_for_take_home_pay(desired_take_home):
+  ctc_employee = format_money(ctc_for_take_home_pay(desired_take_home, is_employee = True))
+  ctc_consultant = format_money(ctc_for_take_home_pay(desired_take_home, is_employee = False))
+  print(f"To take home {format_money(desired_take_home)} a month, an employee should ask for a CTC of {ctc_employee}, while a consultant should ask for a CTC of {ctc_consultant}.")
+    
+print_take_home_for(lac(10))
+print()
+print_ctc_for_take_home_pay(50)
