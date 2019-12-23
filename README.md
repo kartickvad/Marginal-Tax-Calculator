@@ -1,3 +1,9 @@
+**This project is no longer updated. Get the latest version for**:
+  [Mac](https://apps.apple.com/in/app/india-tax-calculator/id1492061607?mt=12)
+  [iPhone](https://apps.apple.com/in/app/reverse-tax-calculator-india/id1491759482)
+
+
+
 This script determines:
   - When you're made an offer for a given CTC, how much will you take home every month?
   - If you want a certain amount of take-home pay every month, what CTC should you ask for?
