@@ -1,6 +1,6 @@
 **This project is no longer updated. Get the latest version for**:
-  [Mac](https://apps.apple.com/in/app/india-tax-calculator/id1492061607?mt=12)
-  [iPhone](https://apps.apple.com/in/app/reverse-tax-calculator-india/id1491759482)
+  * [Mac](https://apps.apple.com/in/app/india-tax-calculator/id1492061607?mt=12)
+  * [iPhone](https://apps.apple.com/in/app/reverse-tax-calculator-india/id1491759482)
 
 
 
