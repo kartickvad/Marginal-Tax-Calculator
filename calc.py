@@ -38,16 +38,6 @@ import math
 # month, except for one month, where it's ₹300.
 PROFESSIONAL_TAX = 2.5
 
-# Some consultants benefit from presumptive taxation at this rate. This means that 50% of your
-# income is tax-free, and only the remaining 50% is considered taxable income.
-#
-# But for some people, only 8% of income is considered taxable, in wihch case you should set this
-# to 0.08. Others pay 6%.
-#
-# Read up on presumptive taxation at https://cleartax.in/s/sugam-itr-4s-form. It falls under section
-# 44AD and 44ADA.
-PRESUMPTIVE_RATE = .5
-
 def lakh(amount):
   return amount * 100
 
@@ -64,7 +54,6 @@ def income_and_professional_tax_for(income):
 
 # Comprises of income tax and professional tax.
 def total_tax_for(income):
-  income *= PRESUMPTIVE_RATE
   return income_and_professional_tax_for(income)
 
 def take_home(income):
