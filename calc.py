@@ -29,16 +29,15 @@
 #
 # Reference: https://www.bankbazaar.com/tax/income-tax-slabs.html
 
-# All values in this script are monthly, and in thousands.
+# All values in this script are monthly.
 
 import math
 
 # Professionals pay an extra state, which varies from state to state. In Karnataka, it's ₹200 per
 # month, except for one month, where it's ₹300.
-PROFESSIONAL_TAX = 2.5 / 12
+PROFESSIONAL_TAX = 2500 / 12
 
-def lakh(amount):
-  return amount * 100
+LAKH = 100 * 1000
 
 def tax_for(gross_income):
   tax = gross_income * 0.3
@@ -59,19 +58,17 @@ def gross_income_for(net_income):
 
 # I/O related:
 def format_money(amount):
-  if amount >= 100:
-    amount /= 100
-    return f"{amount} lakh"
-  return f"{amount}K"
+  amount = math.floor(amount)
+  return f"₹{amount}"
 
 def print_net_income_for(gross_income):
-  net_income = format_money(math.floor(net_income_for(gross_income)))
+  net_income = format_money(net_income_for(gross_income))
   print(f"For a gross income of {format_money(gross_income)}, your net income is {net_income}, both monthly.")
 
 def print_gross_income_for(net_income):
   gross_income = format_money(gross_income_for(net_income))
   print(f"For a net income of {format_money(net_income)}, you should aim for a gross income of {gross_income}, both monthly.")
     
-print_net_income_for(lakh(1))
+print_net_income_for(1 * LAKH)
 print()
-print_gross_income_for(50)
+print_gross_income_for(50000)
