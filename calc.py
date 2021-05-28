@@ -32,12 +32,11 @@
 import math
 
 # If your company has 10 or more employees, it's required to contribute to the
-# Employees' Provident Fund (EPF), at the rate of 25.61%, in which case you should set this variable
-# to 0.2561.
+# Employees' Provident Fund (EPF), at the rate of 25.61%. Set this to zero if not applicable.
 #
 # See
 # https://www.bankbazaar.com/saving-schemes/guide-to-understanding-the-employee-pension-scheme.html
-PF_RATE = 0
+EMPLOYEE_PF_RATE = 0.2561
 
 # Professionals pay an extra state, which varies from state to state. In Karnataka, it's ₹200 per
 # month, except for one month, where it's ₹300. This applies to both employees and consultants.
@@ -122,7 +121,7 @@ def total_tax_for(income, is_employee):
 # Calculates PF (and pension, which we don't need to worry about separately):
 def pf_for(income):
   # To calculate PF, your salary is capped at 15K.
-  return min(income, 15) * PF_RATE
+  return min(income, 15) * EMPLOYEE_PF_RATE
 
 def take_home(income, is_employee):
   tax = total_tax_for(income, is_employee)
