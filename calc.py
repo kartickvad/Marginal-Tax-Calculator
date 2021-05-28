@@ -25,6 +25,7 @@
 #  - Professional tax is calculated for Karnataka.
 #  - Your income from other clients is enough to put you in the 30% slab, so each marginal rupee is
 #    taxed at 30%.
+#  - Your income does not exceed 50 lakh, so surcharge does not apply.
 #
 # Reference: https://www.bankbazaar.com/tax/income-tax-slabs.html
 
@@ -54,12 +55,9 @@ def lakh(amount):
 def income_tax_for(income):
   tax = income * 0.3
   cess = tax * .04  # Health and education cess is 4% of the tax.
-  surcharge = 0
-  if income >= lakh(100):
-    print("Warning: ignoring surcharge for high income")
   if income >= lakh(50):
-    surcharge = tax * .1  # 10% of tax
-  return tax + cess + surcharge
+    print("Warning: ignoring surcharge for high income")
+  return tax + cess
 
 def income_and_professional_tax_for(income):
   return income_tax_for(income) + PROFESSIONAL_TAX
