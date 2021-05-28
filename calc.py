@@ -14,22 +14,15 @@
 # This script calculates take-home pay for a given CTC, for a consultant.
 #
 # Assumptions:
-#  - This is for fiscal year 2019-20.
+#  - This is for fiscal year 2021-22.
 #  - You're a resident individual of India, not a company.
 #  - You're not a senior citizen.
-#  - Numbers are annual, and in thousands of rupees, except when stated otherwise. Take-home pay
-#     is always monthly.
-#  - This script doesn't take into account the cost in your time of dealing with the bureaucracy
-#     regime, or the cost of hiring a CA to do so.
-#  - HRA and LTA are ignored.
 #  - Professional tax is calculated for Karnataka.
 #  - Your income from other clients is enough to put you in the 30% slab, so each marginal rupee is
 #    taxed at 30%.
 #  - Your income does not exceed 50 lakh, so surcharge does not apply.
 #
 # Reference: https://www.bankbazaar.com/tax/income-tax-slabs.html
-
-# All values in this script are monthly.
 
 import math
 
