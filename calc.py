@@ -29,53 +29,52 @@
 #
 # Reference: https://www.bankbazaar.com/tax/income-tax-slabs.html
 
-# All values in this script are in thousands.
+# All values in this script are monthly, and in thousands.
 
 import math
 
 # Professionals pay an extra state, which varies from state to state. In Karnataka, it's ₹200 per
 # month, except for one month, where it's ₹300.
-PROFESSIONAL_TAX = 2.5
+PROFESSIONAL_TAX = 2.5 / 12
 
 def lakh(amount):
   return amount * 100
 
-# How much income tax is due?
-def income_tax_for(income):
-  tax = income * 0.3
+def tax_for(gross_income):
+  tax = gross_income * 0.3
   cess = tax * .04  # Health and education cess is 4% of the tax.
-  if income >= lakh(50):
+  if gross_income * 12 >= lakh(50):
     print("Warning: ignoring surcharge for high income")
-  return tax + cess
+  return tax + cess + PROFESSIONAL_TAX
 
-def income_and_professional_tax_for(income):
-  return income_tax_for(income) + PROFESSIONAL_TAX
+def net_income_for(gross_income):
+  gross_income -= tax_for(gross_income)
+  return math.floor(gross_income)  # Round to the nearest thousand.
 
-def take_home(income):
-  tax = income_and_professional_tax_for(income)
-  income = income - tax
-  return math.floor(income / 12)  # Round to the nearest thousand.
-  
+def gross_income_for(net_income):
+  gross_income = 1
+  while net_income_for(gross_income) < net_income:
+    gross_income += 1
+  return gross_income
+
+
+
+
+# I/O related:
 def format_money(amount):
   if amount >= 100:
     amount /= 100
     return f"{amount} lakh"
   return f"{amount}K"
 
-def print_take_home_for(income):
-  take_home_pay = format_money(take_home(income))
-  print(f"For a CTC of {format_money(income)}, you take home {take_home_pay}, each month.")
+def print_net_income_for(gross_income):
+  net_income = format_money(net_income_for(gross_income))
+  print(f"For a gross income of {format_money(gross_income)}, your net income is {net_income}, both monthly.")
 
-def ctc_for_take_home_pay(desired_take_home):
-  ctc = 1
-  while take_home(ctc) < desired_take_home:
-    ctc += 1
-  return ctc
-
-def print_ctc_for_take_home_pay(desired_take_home):
-  ctc = format_money(ctc_for_take_home_pay(desired_take_home))
-  print(f"To take home {format_money(desired_take_home)} a month, you should aim for a gross annual income of {ctc}.")
+def print_gross_income_for(net_income):
+  gross_income = format_money(gross_income_for(net_income))
+  print(f"For a net income of {format_money(net_income)}, you should aim for a gross income of {gross_income}, both monthly.")
     
-print_take_home_for(lakh(10))
+print_net_income_for(lakh(1))
 print()
-print_ctc_for_take_home_pay(50)
+print_gross_income_for(50)
