@@ -1,16 +1,15 @@
 This script determines:
 
-  * When you're made an offer for a given CTC, how much will you take home every month?
-  * If you want a certain amount of take-home pay every month, what CTC should you ask for?
+  * For a given gross salary, how much will you take home every month?
+  * If you want a certain amount of take-home pay every month, what gross salary should you ask for?
 
 This is for Indians.
 
 This script handles:
 
-  * Differing tax treatments for employees and consultants. The latter are eligible for presumptive taxation under section 44AD.
+  * Consultants only. Not employees. Consultants are eligible for presumptive taxation under section 44AD.
   * Health and education cess
   * Surcharge
-  * PF and pension
   * Section 80C investments
   * Professional tax.
 
