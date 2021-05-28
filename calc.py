@@ -48,8 +48,7 @@ def tax_for(gross_income):
   return tax + cess + PROFESSIONAL_TAX
 
 def net_income_for(gross_income):
-  gross_income -= tax_for(gross_income)
-  return math.floor(gross_income)  # Round to the nearest thousand.
+  return gross_income - tax_for(gross_income)
 
 def gross_income_for(net_income):
   gross_income = 1
@@ -68,7 +67,7 @@ def format_money(amount):
   return f"{amount}K"
 
 def print_net_income_for(gross_income):
-  net_income = format_money(net_income_for(gross_income))
+  net_income = format_money(math.floor(net_income_for(gross_income)))
   print(f"For a gross income of {format_money(gross_income)}, your net income is {net_income}, both monthly.")
 
 def print_gross_income_for(net_income):
