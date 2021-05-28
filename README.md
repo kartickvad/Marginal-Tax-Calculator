@@ -12,7 +12,7 @@ This script handles:
   * Surcharge
   * PF and pension
   * Section 80C investments
-  ** Professional tax.
+  * Professional tax.
 
 The script makes some assumptions, listed at the top of the file. Verify that those apply to you, taking your CA's help if needed. Some parameters can be changed; again, see the comments.
 
