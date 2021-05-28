@@ -29,8 +29,7 @@
 #
 # Reference: https://www.bankbazaar.com/tax/income-tax-slabs.html
 
-# All values are in thousands.
-
+# All values in this script are in thousands.
 
 import math
 
@@ -52,12 +51,8 @@ def income_tax_for(income):
 def income_and_professional_tax_for(income):
   return income_tax_for(income) + PROFESSIONAL_TAX
 
-# Comprises of income tax and professional tax.
-def total_tax_for(income):
-  return income_and_professional_tax_for(income)
-
 def take_home(income):
-  tax = total_tax_for(income)
+  tax = income_and_professional_tax_for(income)
   income = income - tax
   return math.floor(income / 12)  # Round to the nearest thousand.
   
