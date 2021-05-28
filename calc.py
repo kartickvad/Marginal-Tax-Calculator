@@ -23,6 +23,8 @@
 #     regime, or the cost of hiring a CA to do so.
 #  - HRA and LTA are ignored.
 #  - Professional tax is calculated for Karnataka.
+#  - Your income from other clients is enough to put you in the 30% slab, so each marginal rupee is
+#    taxed at 30%.
 #
 # Reference: https://www.bankbazaar.com/tax/income-tax-slabs.html
 
@@ -45,46 +47,12 @@ PROFESSIONAL_TAX = 2.5
 # 44AD and 44ADA.
 PRESUMPTIVE_RATE = .5
 
-# The tax slabs are 2.5, 5 and 10 lakh:
-SLAB_1 = 250
-SLAB_2 = 500
-SLAB_3 = 1000
-
 def lakh(amount):
   return amount * 100
 
-# How much income tax is due under slab 1?
-def income_tax_slab_1(income):
-  if income <= SLAB_1:
-    return 0  # No tax under this slab, since your income is too low.
-  if income > SLAB_2:
-    income = SLAB_2  # Income that falls under the next slab shouldn't be taxed in this one.
-  income -= SLAB_1 # Only the part of your income that exceeds the limit is taxed.
-  return income * .05  # 5% tax rate for this slab
-
-# How much income tax is due under slab 2?
-def income_tax_slab_2(income):
-  if income <= SLAB_2:
-    return 0
-  if income > SLAB_3:
-    income = SLAB_3
-  income -= SLAB_2
-  return income * .2  # 20%
-
-# How much income tax is due under slab 3?
-def income_tax_slab_3(income):
-  if income <= SLAB_3:
-    return 0
-  income -= SLAB_3
-  return income * .3  #30%
-
 # How much income tax is due?
 def income_tax_for(income):
-  # People with income less than 5 lakh pay no tax, though according to the slabs, they're required
-  # to:
-  if income <= 500:
-    return 0
-  tax = income_tax_slab_1(income) + income_tax_slab_2(income) + income_tax_slab_3(income)
+  tax = income * 0.3
   cess = tax * .04  # Health and education cess is 4% of the tax.
   surcharge = 0
   if income >= lakh(100):
