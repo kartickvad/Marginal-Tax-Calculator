@@ -43,8 +43,6 @@ def lakh(amount):
 def tax_for(gross_income):
   tax = gross_income * 0.3
   cess = tax * .04  # Health and education cess is 4% of the tax.
-  if gross_income * 12 >= lakh(50):
-    print("Warning: ignoring surcharge for high income")
   return tax + cess + PROFESSIONAL_TAX
 
 def net_income_for(gross_income):
