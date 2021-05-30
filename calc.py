@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # coding: utf-8
-# Run this in the latest version of Python. I tested with 3.7.
+# Run this in the latest version of Python. I tested with 3.9.
 
 # Author: Kartick Vaddadi
 # Released under Apache license 2.0.
