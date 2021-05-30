@@ -30,12 +30,15 @@ import math
 # ₹300.
 PROFESSIONAL_TAX = 2500 / 12
 
+# 30% with 4% health and education cess.
+INCOME_TAX_RATE = 0.3 * 1.04
+
 LAKH = 100 * 1000
 
 def tax_for(gross_income):
-  tax = gross_income * 0.3
-  cess = tax * .04  # Health and education cess is 4% of the tax.
-  return tax + cess + PROFESSIONAL_TAX
+  taxable_income = gross_income - PROFESSIONAL_TAX  # You don't pay income tax on professional tax.
+  income_tax = taxable_income * INCOME_TAX_RATE
+  return income_tax + PROFESSIONAL_TAX
 
 def net_income_for(gross_income):
   return gross_income - tax_for(gross_income)
@@ -62,6 +65,4 @@ def print_gross_income_for(net_income):
   gross_income = format_money(gross_income_for(net_income))
   print(f"For a net income of {format_money(net_income)}, you should aim for a gross income of {gross_income}, both monthly.")
     
-print_net_income_for(1 * LAKH)
-print()
 print_gross_income_for(50000)
