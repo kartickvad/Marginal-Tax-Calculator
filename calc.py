@@ -1,17 +1,12 @@
 #!/usr/bin/env python3
 # coding: utf-8
-# Run this in the latest version of Python. I tested with 3.9.
-
 # Author: Kartick Vaddadi
 # Released under Apache license 2.0.
-
-
-# This script handles
-#   - Income tax
-#   - Professional tax
-
-
-# This script calculates take-home pay for a given CTC, for a consultant.
+#
+# This script calculates marginal tax for consultants: if you want to earn a given amount of net
+# income, how much gross fee should you quote a client, considering income tax and professional
+# tax? And if you already have a client for a given gross fee, how much net income will you earn
+# from it?
 #
 # Assumptions:
 #  - This is for fiscal year 2021-22.
@@ -21,8 +16,8 @@
 #  - Your income from other clients is enough to put you in the 30% slab, so each marginal rupee is
 #    taxed at 30%.
 #  - Your income does not exceed 50 lakh, so surcharge does not apply.
-#
-# Reference: https://www.bankbazaar.com/tax/income-tax-slabs.html
+#  - GST is not included because it's zero-rated for foreign clients (Even for Indian clients, it's 
+#    typically passed on to clients over and above the quoted fee).
 
 import math
 
