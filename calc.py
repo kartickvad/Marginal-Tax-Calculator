@@ -15,7 +15,7 @@
 #
 # Assumptions:
 #  - This is for fiscal year 2021-22.
-#  - You're a resident individual of India, not a company.
+#  - You're a resident individual of India or an LLP.
 #  - You're not a senior citizen.
 #  - Professional tax is calculated for Karnataka.
 #  - Your income from other clients is enough to put you in the 30% slab, so each marginal rupee is
@@ -26,8 +26,8 @@
 
 import math
 
-# Professionals pay an extra state, which varies from state to state. In Karnataka, it's ₹200 per
-# month, except for one month, where it's ₹300.
+# Varies from state to state. In Karnataka, it's ₹200 per month, except for one month, where it's
+# ₹300.
 PROFESSIONAL_TAX = 2500 / 12
 
 LAKH = 100 * 1000
