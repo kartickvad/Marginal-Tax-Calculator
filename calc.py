@@ -28,8 +28,6 @@ PROFESSIONAL_TAX = 2500 / 12
 # 30% with 4% health and education cess.
 INCOME_TAX_RATE = 0.3 * 1.04
 
-LAKH = 100 * 1000
-
 def tax_for(gross_income):
   taxable_income = gross_income - PROFESSIONAL_TAX  # You don't pay income tax on professional tax.
   income_tax = taxable_income * INCOME_TAX_RATE
