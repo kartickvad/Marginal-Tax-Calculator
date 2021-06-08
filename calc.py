@@ -24,7 +24,7 @@ Assumptions:
 
 # Varies from state to state. In Karnataka, it's ₹200 per month, except for one month, where it's
 # ₹300.
-PROFESSIONAL_TAX = 2500 / 12
+PROFESSIONAL_TAX = 2500 / 12.0
 
 # 30% with 4% health and education cess.
 INCOME_TAX_RATE = 0.3 * 1.04
