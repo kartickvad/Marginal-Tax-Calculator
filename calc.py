@@ -25,7 +25,7 @@ Assumptions:
 
 # 30% with 4% health and education cess.
 INCOME_TAX_RATE = 0.3 * 1.04
-  
+
 def tax_for(gross_income):
   "Calculates income tax for the given gross income"
   return gross_income * INCOME_TAX_RATE
