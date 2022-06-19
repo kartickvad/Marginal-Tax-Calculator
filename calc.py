@@ -52,4 +52,4 @@ def print_gross_income_for(net_income):
   gross_income = gross_income_for(net_income)
   print(f"For a net income of {format_rupees(net_income)}, you should aim for a gross income of {format_rupees(gross_income)}, both monthly.")
 
-print_gross_income_for(50000)
+print_gross_income_for(net_income = 50000)
